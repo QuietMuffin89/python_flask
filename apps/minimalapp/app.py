@@ -63,11 +63,11 @@ def contact_complete():
         description = request.form["description"]
 
         send_email(
-            email,
-            "문의 감사합니다.",
-            "contact_mail",
-            username=username,
-            description=description,
+            email, #메일주소    
+            "문의 감사합니다.", # 이메일 답장의 제목
+            "contact_mail",  # 이메일 내용의 템플릿
+            username=username, # 사용자 이름
+            description=description, # 문의 내용
         )
 
         # 입력 유효성 검사
@@ -99,7 +99,7 @@ def contact_complete():
         return redirect(url_for("contact_complete"))
     
     return render_template("contact_complete.html")
-
+    # 메일을 보내기 위해서 API사용하는 함수
 def send_email(to, subject, template, **kwargs):
     msg = Message(subject, recipients=[to])
     msg.body = render_template(template + ".txt", **kwargs)
